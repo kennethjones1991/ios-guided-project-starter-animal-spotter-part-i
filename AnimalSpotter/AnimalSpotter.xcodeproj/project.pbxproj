@@ -17,6 +17,7 @@
 		D2C88E1F24392FD60072EAD2 /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C88E1E24392FD60072EAD2 /* Animal.swift */; };
 		D2C88E21243932950072EAD2 /* AnimalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C88E20243932950072EAD2 /* AnimalDetailViewController.swift */; };
 		D2C88E23243933BB0072EAD2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C88E22243933BB0072EAD2 /* LoginViewController.swift */; };
+		D2C88E2624393B930072EAD2 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C88E2524393B930072EAD2 /* APIController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		D2C88E1E24392FD60072EAD2 /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
 		D2C88E20243932950072EAD2 /* AnimalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailViewController.swift; sourceTree = "<group>"; };
 		D2C88E22243933BB0072EAD2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D2C88E2524393B930072EAD2 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +69,8 @@
 				D2C88E1424391F8E0072EAD2 /* App */,
 				D2C88E16243921BF0072EAD2 /* Models */,
 				D2C88E17243921C80072EAD2 /* View Models */,
+				D2C88E2424393B3B0072EAD2 /* Controllers */,
 				D2C88E1524391F960072EAD2 /* View Controllers */,
-				D2C88E1B243922450072EAD2 /* Services */,
 				D2C88E1A243922150072EAD2 /* Storyboards */,
 				D2C88E19243921E60072EAD2 /* Supporting Files */,
 			);
@@ -128,11 +130,12 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		D2C88E1B243922450072EAD2 /* Services */ = {
+		D2C88E2424393B3B0072EAD2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D2C88E2524393B930072EAD2 /* APIController.swift */,
 			);
-			path = Services;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +213,7 @@
 				D2C88E0524391A8E0072EAD2 /* AnimalsViewController.swift in Sources */,
 				D2C88E0124391A8E0072EAD2 /* AppDelegate.swift in Sources */,
 				D2C88E21243932950072EAD2 /* AnimalDetailViewController.swift in Sources */,
+				D2C88E2624393B930072EAD2 /* APIController.swift in Sources */,
 				D2C88E1D24392F470072EAD2 /* AnimalsViewModel.swift in Sources */,
 				D2C88E0324391A8E0072EAD2 /* SceneDelegate.swift in Sources */,
 				D2C88E1F24392FD60072EAD2 /* Animal.swift in Sources */,

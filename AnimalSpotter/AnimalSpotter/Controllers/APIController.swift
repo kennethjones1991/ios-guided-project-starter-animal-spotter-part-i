@@ -16,5 +16,5 @@ final class APIController {
     }
     
     private let baseURL = URL(string: "https://lambdaanimalspotter.vapor.cloud")!
-    private lazy var peopleURL = URL(string: "/api", relativeTo: baseURL)!
+    private lazy var apiURL = URL(string: "/api", relativeTo: baseURL)!
 }

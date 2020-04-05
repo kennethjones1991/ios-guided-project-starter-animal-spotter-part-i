@@ -15,6 +15,5 @@ final class APIController {
         case post = "POST"
     }
     
-    private let baseURL = URL(string: "https://lambdaanimalspotter.vapor.cloud")!
-    private lazy var apiURL = URL(string: "/api", relativeTo: baseURL)!
+    private let baseURL = URL(string: "https://lambdaanimalspotter.vapor.cloud/api")!
 }

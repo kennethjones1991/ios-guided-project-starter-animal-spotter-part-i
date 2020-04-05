@@ -231,6 +231,7 @@
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="xi1-hq-ReS" firstAttribute="trailing" secondItem="Vzk-bi-HY4" secondAttribute="trailing" constant="16" id="1Dz-3G-J7C"/>
                             <constraint firstItem="yNE-XT-TRv" firstAttribute="centerY" secondItem="cVD-u0-EtJ" secondAttribute="centerY" id="CKU-C4-bzF"/>
@@ -239,6 +240,9 @@
                             <constraint firstItem="Vzk-bi-HY4" firstAttribute="leading" secondItem="xi1-hq-ReS" secondAttribute="leading" constant="16" id="yjf-dG-rcE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xi1-hq-ReS"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="xU4-Zn-hQR" appends="YES" id="wgp-p6-SHF"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="SeF-cf-V3i">
                         <nil key="title"/>
@@ -263,6 +267,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wg2-aD-sH2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="xU4-Zn-hQR">
+                    <connections>
+                        <action selector="dismissKeyboard:" destination="su2-vj-h5A" id="4z8-Co-8BV"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2868.115942028986" y="-800"/>
         </scene>

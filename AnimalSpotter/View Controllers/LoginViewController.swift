@@ -33,6 +33,10 @@ class LoginViewController: UIViewController {
     
     // MARK: - Actions
     
+    @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
     @IBAction func loginTypeChanged(_ sender: UISegmentedControl) {
         
     }

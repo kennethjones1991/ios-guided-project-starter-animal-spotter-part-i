@@ -8,12 +8,12 @@
 
 import UIKit
 
+enum LoginType: String {
+    case signUp = "Sign Up"
+    case signIn = "Sign In"
+}
+
 class LoginViewController: UIViewController {
-    enum LoginType: String {
-        case signUp = "Sign Up"
-        case signIn = "Sign In"
-    }
-    
     // MARK: - Properties
     
     static let identifier: String = String(describing: LoginViewController.self)

@@ -226,11 +226,16 @@
                                     <constraint firstAttribute="trailing" secondItem="1ME-7w-ZCv" secondAttribute="trailing" constant="40" id="vWs-n1-tEg"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="yNE-XT-TRv">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="xi1-hq-ReS" firstAttribute="trailing" secondItem="Vzk-bi-HY4" secondAttribute="trailing" constant="16" id="1Dz-3G-J7C"/>
+                            <constraint firstItem="yNE-XT-TRv" firstAttribute="centerY" secondItem="cVD-u0-EtJ" secondAttribute="centerY" id="CKU-C4-bzF"/>
                             <constraint firstItem="Vzk-bi-HY4" firstAttribute="top" secondItem="xi1-hq-ReS" secondAttribute="top" constant="40" id="I4C-ig-kww"/>
+                            <constraint firstItem="yNE-XT-TRv" firstAttribute="centerX" secondItem="cVD-u0-EtJ" secondAttribute="centerX" id="mBd-aw-Kv1"/>
                             <constraint firstItem="Vzk-bi-HY4" firstAttribute="leading" secondItem="xi1-hq-ReS" secondAttribute="leading" constant="16" id="yjf-dG-rcE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xi1-hq-ReS"/>
@@ -250,6 +255,7 @@
                         </segmentedControl>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="yNE-XT-TRv" id="hrX-hE-3sC"/>
                         <outlet property="loginTypeSegmentedControl" destination="sF0-rl-HvY" id="SX0-bw-3AY"/>
                         <outlet property="passwordTextField" destination="dNc-Mt-pYt" id="06R-RK-sfv"/>
                         <outlet property="submitButton" destination="1ME-7w-ZCv" id="J16-Q5-5mZ"/>

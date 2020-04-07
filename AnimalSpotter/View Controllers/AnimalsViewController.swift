@@ -27,17 +27,6 @@ final class AnimalsViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case AnimalDetailViewController.identifier:
-            break
-        case LoginViewController.identifier:
-            break
-        default:
-            break
-        }
-    }
-    
     // MARK: - Actions
     
     @IBAction func getAnimalNames(_ sender: UIBarButtonItem) {

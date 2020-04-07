@@ -9,5 +9,5 @@
 import Foundation
 
 final class AnimalsViewModel {
-    var animals = [Animal]()
+    var animalNames = [String]()
 }

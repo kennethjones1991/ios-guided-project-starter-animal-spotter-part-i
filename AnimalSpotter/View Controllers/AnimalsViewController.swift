@@ -40,7 +40,7 @@ final class AnimalsViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func getAnimals(_ sender: UIBarButtonItem) {
+    @IBAction func getAnimalNames(_ sender: UIBarButtonItem) {
         
     }
 }
@@ -52,22 +52,22 @@ extension AnimalsViewController {
         case main
     }
     
-    private func makeDataSource() -> UITableViewDiffableDataSource<Section, Animal> {
-        UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, animal in
+    private func makeDataSource() -> UITableViewDiffableDataSource<Section, String> {
+        UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, name in
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: CellIdentifier.animalCell.rawValue,
                                      for: indexPath)
             
-            cell.textLabel?.text = animal.name
+            cell.textLabel?.text = name
             return cell
         }
     }
     
     private func update() {
         activityIndicator.stopAnimating()
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Animal>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(viewModel.animals)
+        snapshot.appendItems(viewModel.animalNames)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }

@@ -21,11 +21,16 @@ final class APIController {
         case failedSignUp
         case failedSignIn
         case noToken
+        case tryAgain
+        case invalidURL
+        case invalidImageData
     }
 
     private let baseURL = URL(string: "https://lambdaanimalspotter.herokuapp.com/api")!
     private lazy var signUpURL = baseURL.appendingPathComponent("/users/signup")
     private lazy var signInURL = baseURL.appendingPathComponent("/users/login")
+    private lazy var allAnimalURL = baseURL.appendingPathComponent("/animals/all")
+    private lazy var animalDetailURL = baseURL.appendingPathComponent("/animals")
     
     var bearer: Bearer?
     
@@ -119,8 +124,130 @@ final class APIController {
     }
     
     // create function for fetching all animal names
+    func fetchAllAnimalNames(completion: @escaping (Result<[String], NetworkError>) -> Void) {
+        // Make sure the user is authenticated through the bearer token
+        guard let bearer = self.bearer else {
+            completion(.failure(.noToken))
+            return
+        }
+        
+        // Set up request
+        var request = URLRequest(url: allAnimalURL)
+        request.httpMethod = HTTPMethod.get.rawValue
+        request.setValue("Bearer \(bearer.token)", forHTTPHeaderField: "Authorization")
+        
+        // Create data task
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            // Handle errors first
+            if let error = error {
+                print("Error receiving animal name data: \(error)")
+                completion(.failure(.tryAgain))
+                return
+            }
+            
+            // Handle responses
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 401 {
+                completion(.failure(.noToken))
+                return
+            }
+            
+            // Handle data
+            guard let data = data else {
+                print("No data received from getAllAnimals")
+                completion(.failure(.noData))
+                return
+            }
+            
+            // Decode the data
+            do {
+                let decoder = JSONDecoder()
+                let animalNames = try decoder.decode([String].self, from: data)
+                completion(.success(animalNames))
+            } catch {
+                print("Error decoding animal name data: \(error)")
+                completion(.failure(.tryAgain))
+                return
+            }
+        }
+        task.resume()
+    }
     
     // create function for fetching animal details
+    func fetchDetails(for animalName: String, completion: @escaping (Result<Animal, NetworkError>) -> Void) {
+        // Make sure the user is authenticated through the bearer token
+        guard let bearer = self.bearer else {
+            completion(.failure(.noToken))
+            return
+        }
+        
+        // Set up request
+        var request = URLRequest(url: animalDetailURL.appendingPathComponent(animalName))
+        request.httpMethod = HTTPMethod.get.rawValue
+        request.setValue("Bearer \(bearer.token)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print("Error receiving animal detail data: \(error)")
+                completion(.failure(.tryAgain))
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 401 {
+                completion(.failure(.noToken))
+                return
+            }
+            
+            guard let data = data else {
+                print("No data received from fetchDetails for animal: \(animalName)")
+                completion(.failure(.noData))
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .secondsSince1970
+                let animal = try decoder.decode(Animal.self, from: data)
+                completion(.success(animal))
+            } catch {
+                print("Error decoding animal detail data: \(error). With animal name: \(animalName)")
+                completion(.failure(.tryAgain))
+                return
+            }
+        }
+        task.resume()
+    }
     
     // create function to fetch image
+    func fetchImage(at urlString: String, completion: @escaping (Result<UIImage, NetworkError>) -> Void) {
+        guard let imageURL = URL(string: urlString) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        var request = URLRequest(url: imageURL)
+        request.httpMethod = HTTPMethod.get.rawValue
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
+            if let error = error {
+                print("Error receiving animal image: \(urlString), error: \(error)")
+                completion(.failure(.tryAgain))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+            
+            if let image = UIImage(data: data) {
+                completion(.success(image))
+                return
+            } else {
+                completion(.failure(.invalidImageData))
+            }
+        }
+        task.resume()
+    }
 }

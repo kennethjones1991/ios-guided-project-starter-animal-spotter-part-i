@@ -14,7 +14,11 @@ class AnimalsTableViewController: UITableViewController {
     
     let reuseIdentifier = "AnimalCell"
     let apiController = APIController()
-    private var animalNames: [String] = []
+    private var animalNames: [String] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
 
     // MARK: - View Lifecycle
     
@@ -50,6 +54,35 @@ class AnimalsTableViewController: UITableViewController {
     
     @IBAction func getAnimals(_ sender: UIBarButtonItem) {
         // fetch all animals from API
+//        apiController.fetchAllAnimalNames { (result) in
+//            if let names = try? result.get() {
+//                DispatchQueue.main.async {
+//                    self.animalNames = names
+//                    self.tableView.reloadData()
+//                }
+//            }
+//        }
+        
+        // Better way to do the above stuff
+        apiController.fetchAllAnimalNames { (result) in
+            do {
+                let names = try result.get()
+                DispatchQueue.main.async {
+                    self.animalNames = names
+                }
+            } catch {
+                if let error = error as? APIController.NetworkError {
+                    switch error {
+                    case .noToken:
+                        print("Have user try to log in again")
+                    case .noData, .tryAgain:
+                        print("Have user try again")
+                    default:
+                        break
+                    }
+                }
+            }
+        }
     }
     
     // MARK: - Navigation
@@ -60,6 +93,13 @@ class AnimalsTableViewController: UITableViewController {
             // inject dependencies
             if let loginVC = segue.destination as? LoginViewController {
                 loginVC.apiController = apiController
+            }
+        } else if segue.identifier == "ShowAnimalDetailSegue" {
+            if let detailVC = segue.destination as? AnimalDetailViewController {
+                if let indexPath = tableView.indexPathForSelectedRow {
+                    detailVC.animalName = animalNames[indexPath.row]
+                    detailVC.apiController = apiController
+                }
             }
         }
     }
